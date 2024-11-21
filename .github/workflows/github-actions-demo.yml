@@ -1,19 +1,29 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions Ì∫Ä
+run-name: ${{ github.actor }} is testing out GitHub Actions ÔøΩÔøΩÔøΩ
 on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Ìæâ The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "Ì∞ß This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "Ì¥é The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+
+      - name: Login to DockerHub
+          uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        if: success()
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/<image_name>:latest
+      - run: echo "ÔøΩÔøΩÔøΩ The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "ÔøΩÔøΩÔøΩ This job is now running on a ${{ runner.os }} server hosted by GitHub!"
         uses: actions/checkout@v4
-      - run: echo "Ì≤° The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "Ì∂•Ô∏è The workflow is now ready to test your code on the runner."
+      - run: echo "ÔøΩÔøΩÔøΩ The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "ÔøΩÔøΩÔøΩÔ∏è The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "ÌΩè This job's status is ${{ job.status }}."
+      - run: echo "ÔøΩÔøΩÔøΩ This job's status is ${{ job.status }}."
 
