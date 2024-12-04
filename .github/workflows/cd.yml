@@ -24,7 +24,7 @@ jobs:
       - name: Check if Docker Image Exists
         id: check_image
         run: |
-          REPOSITORY="${{ secrets.DOCKERHUB_USERNAME }}/my-image:latest"  # Replace with your DockerHub repository name
+          REPOSITORY="${{ secrets.DOCKERHUB_USERNAME }}/math-test:latest"  # Replace with your DockerHub repository name
           TAG="latest"
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -u "${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_TOKEN }}" https://hub.docker.com/v2/repositories/${REPOSITORY}/tags/${TAG}/)
           if [ "$RESPONSE" -ne 200 ]; then
